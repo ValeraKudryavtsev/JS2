@@ -1,0 +1,124 @@
+:root {
+    --black: #222222;
+    --white: #E5E5E5;
+    --gray: #F8F8F8;
+    --blue: #1466a6;
+}
+
+.container {
+    margin: 0 auto;
+    width: 1140px;
+}
+
+.cart__button {
+    border: 1.5px solid var(--blue);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    color: var(--blue);
+    text-decoration: none;
+    width: 138px;
+    height: 43px;
+    background-color: inherit;
+    margin: 30px 0px;
+}
+
+.cart__button:hover {
+    border: none;
+    background-color: var(--blue);
+    color: #FFFFFF;
+}
+
+.goods__list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.goods__item {
+    width: 31.5%;
+    margin-bottom: 30px;
+    background-color: var(--gray);
+}
+
+.goods__img-box {
+    width: 100%;
+    position: relative;
+}
+
+.goods__img-box:hover::before {
+    content: '';
+    background-color: #3A3838DB;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.goods__img {
+    width: 100%;
+}
+
+.goods__cart-button {
+    display: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    text-decoration: none;
+    width: 138px;
+    height: 43px;
+}
+
+.goods__cart-button:hover {
+    color: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+.goods__cart-button:hover>.goods__cart-icon {
+    fill: var(--blue);
+}
+
+.goods__img-box:hover .goods__cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.goods__cart-icon {
+    fill: #FFFFFF;
+}
+
+.goods__cart-button>span {
+    margin-left: 13px;
+}
+
+.goods__item-title {
+    margin: 24px 0 12.5px 18px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+
+.goods__item-text {
+    margin: 0 24px 18px 18px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17px;
+    color: #9F9F9F;
+}
+
+.goods__item-price {
+    margin: 0 0 20px 18px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    color: var(--blue);
+}
