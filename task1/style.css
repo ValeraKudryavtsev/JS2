@@ -34,11 +34,11 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
-    color: var(--white);
+    color: var(--blue);
     text-decoration: none;
     width: 138px;
     height: 43px;
-    background-color: inherit;
+    background-color: var(--white);
 }
 
 .cart__button:hover {
@@ -47,9 +47,33 @@
     color: #FFFFFF;
 }
 
+.cart__list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 64px;
+}
+
+.cart__item {
+    display: flex;
+    margin-bottom: 16px;
+    border: 1px solid #000;
+}
+
+.cart__item-box1 {
+    display: flex;
+}
+
+.cart__img-box {
+    width: 10%;
+}
+
+.cart__img {
+    width: 100%;
+}
+
 .goods__list {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
