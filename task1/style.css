@@ -10,22 +10,40 @@
     width: 1140px;
 }
 
+.header {
+    background-color: var(--blue);
+}
+
+.header__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 32px;
+}
+
+.header__title {
+    color: var(--white);
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
 .cart__button {
-    border: 1.5px solid var(--blue);
+    border: 1.5px solid var(--white);
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
-    color: var(--blue);
+    color: var(--white);
     text-decoration: none;
     width: 138px;
     height: 43px;
     background-color: inherit;
-    margin: 30px 0px;
 }
 
 .cart__button:hover {
     border: none;
-    background-color: var(--blue);
+    background-color: var(--black);
     color: #FFFFFF;
 }
 
