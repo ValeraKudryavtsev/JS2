@@ -1,11 +1,15 @@
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
 // класс, который отвечает за товар, метод класса отвечвает за html-разметку
 class GoodsItem {
-    constructor(title, price, img) {
+    constructor(id, title, price) {
+        this.id = id;
         this.title = title;
         this.price = price;
-        this.img = img;
+        this.img = "./img/product.png";
         this.caption = 'Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.';
     }
+
     render() {
         return `<li class="goods__item">
                     <div class="goods__img-box">
@@ -27,28 +31,33 @@ class GoodsItem {
 // список товаров
 class GoodsList {
     constructor() {
-        this.goods = [];
+        this.goods = []; //массив товаров из JSON документа
+        this.getProducts()
+            .then(data => { // data - массив объектов
+                this.goods = data;
+                this.getSum();
+                this.render();
+            });
     }
-    fetchGoods() {
-        this.goods = [
-            { title: 'Shirt', price: 150, img: './img/product-1.jpg' },
-            { title: 'Socks', price: 50, img: './img/product-2.jpg' },
-            { title: 'Jacket', price: 350, img: './img/product-3.jpg' },
-            { title: 'Shoes', price: 250, img: './img/product-4.jpg' },
-            { title: 'Dress', price: 150, img: './img/product-5.jpg' },
-            { title: 'T-shirt', price: 300, img: './img/product-6.jpg' },
-        ];
+
+    getProducts() {
+        return fetch(`${API}/catalogData.json`)
+            .then(result => result.json())
+            .catch(error => {
+                console.log('error');
+            });
     }
+
     render() {
         let listHtml = '';
         let block = document.querySelector('.goods__list');
         this.goods.forEach(good => {
-            const goodItem = new GoodsItem(good.title, good.price, good.img);
+            const goodItem = new GoodsItem(good.id_product, good.product_name, good.price);
             listHtml += goodItem.render();
         });
         block.innerHTML = listHtml;
-        // document.querySelector('.goods__list').innerHTML = goodsList.join('');
     }
+
     getSum() {
         let sum = 0;
         this.goods.forEach(good => {
@@ -59,26 +68,51 @@ class GoodsList {
 }
 
 const list = new GoodsList();
-list.fetchGoods();
-list.render();
-// суммарная стоимость всех товаров
-list.getSum();
+// суммарная стоимость всех товаров выведена в консоль
+// list.getSum();
 
 // набросок классов для работы корзины
 class CartList {
     // конструктор
     constructor() {
+        this.goods = []; //массив товаров из JSON документа
+        this.getProducts()
+            .then(data => { // data - объект
+                this.goods = data.contents; //data.contents - массив объектов
+                this.renderAll();
+            });
+    }
 
-        }
-        // добавляем элемент с помощью CartItem
+    getProducts() {
+        return fetch(`${API}/getBasket.json`)
+            .then(result => result.json())
+            .catch(error => {
+                console.log('error');
+            });
+    }
+
+    // получаем все товары из корзины
+    renderAll() {
+        let listHtml = '';
+        let block = document.querySelector('.cart__list');
+        this.goods.forEach(good => {
+            const goodItem = new CartItem(good.id_product, good.product_name, good.price, good.quantity);
+            listHtml += goodItem.render();
+        });
+        block.innerHTML = listHtml;
+    }
+
+    // добавляем элемент с помощью CartItem
     addItem() {
 
-        }
-        // удаляем элемент из корзины
+    }
+
+    // удаляем элемент из корзины
     removeItem() {
 
-        }
-        // суммарная стоимость товаров из корзины
+    }
+
+    // суммарная стоимость каждого товара из корзины
     getGoodsSum() {
 
     }
@@ -86,14 +120,40 @@ class CartList {
 
 class CartItem {
     // конструктор
-    constructor() {
+    constructor(id, title, price, count) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.count = count;
+        this.img = "./img/product.png";
+    }
 
-        }
-        // формирование разметки
+    // формирование разметки
     render() {
-
+        return `<li class="cart__item">
+                    <div class="cart__item-box1">
+                        <div class="cart__img-box">
+                            <img class="cart__img" src="${this.img}" alt="Product img">
+                        </div>
+                        <div class="cart__item-info">
+                            <h3 class="cart__item-title">${this.title}</h2>
+                            <p class="cart__item-price">$${this.price}</p>
+                            <p class="cart__item-count">Quantity: ${this.count}</p>
+                        </div>
+                    </div>
+                    <div class="cart__item-box2">
+                        <p class="cart__item-sum">$${this.price * this.count}</p>
+                        <button class="cart__item-remove" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </li>`;
     }
 }
+
+const cart = new CartList();
 
 // пока оставлю здесь
 
@@ -101,4 +161,15 @@ class CartItem {
 // const renderGoodsList = (list) => {
 //     let goodsList = list.map(item => renderGoodsItem(item.title, item.price, item.img));
 //     document.querySelector('.goods__list').innerHTML = goodsList.join('');
+// }
+
+// fetchGoods() {
+//     this.goods = [
+//         { title: 'Shirt', price: 150 },
+//         { title: 'Socks', price: 50 },
+//         { title: 'Jacket', price: 350 },
+//         { title: 'Shoes', price: 250 },
+//         { title: 'Dress', price: 150 },
+//         { title: 'T-shirt', price: 300 },
+//     ];
 // }
