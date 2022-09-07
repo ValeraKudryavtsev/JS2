@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eShop</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -18,8 +21,11 @@
         </div>
     </header>
     <main class="container">
-        <h2>Корзина</h2>
-        <ul class="cart__list"></ul>
+        <ul class="cart__list invisible">
+            <li class="cart__item">
+                <h2 class="cart__item-heading">Ваша корзина</h2>
+            </li>
+        </ul>
         <ul class="goods__list"></ul>
     </main>
     <script src="script.js"></script>
