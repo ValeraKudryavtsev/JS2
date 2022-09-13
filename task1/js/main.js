@@ -24,21 +24,21 @@ const app = new Vue({
                     console.log(error);
                 })
         },
-        addProduct(item){
+        addProduct(item) {
             let find = this.cart.find(product => item.id_product === product.id_product);
-            if(find){
+            if (find) {
                 find.quantity++;
-            }else{
-                this.$set(item,'quantity',1);
+            } else {
+                this.$set(item, 'quantity', 1);
                 this.cart.push(item);
             }
             console.log(this.cart);
         },
         removeProduct(item) {
-            if(item.quantity > 1) {
+            if (item.quantity > 1) {
                 item.quantity--;
-            }else{
-                // надо подумать, пока что просто в минус считает
+            } else {
+                this.cart.splice(this.cart.indexOf(item), 1);
             }
         }
     },
